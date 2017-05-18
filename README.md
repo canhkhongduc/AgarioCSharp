@@ -1,2 +1,2 @@
 # AgarioCSharp
-Team project for ASP .NET Course - FPT University
+Team project for C# .NET Course - FPT University
