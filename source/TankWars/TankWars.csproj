@@ -41,10 +41,7 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Art.cs" />
-    <Compile Include="EntityManager.cs" />
     <Compile Include="Game1.cs" />
-    <Compile Include="Input.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -66,6 +63,10 @@
     <ProjectReference Include="..\Entity\Entity.csproj">
       <Project>{ebc4bef7-fdb5-4abb-8c9b-b686c4cbfb47}</Project>
       <Name>Entity</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Helper\Helper.csproj">
+      <Project>{223A6A23-7DC2-454E-8A8D-6C9C822AB3EF}</Project>
+      <Name>Helper</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

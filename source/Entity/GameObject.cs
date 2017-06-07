@@ -5,26 +5,26 @@ namespace Entity
 {
     public abstract class GameObject
     {
-        protected Texture2D image;
-        protected Color color = Color.White;
+        public Texture2D Image { get; set; }
+        public Color Color { get; set; } = Color.White;
 
-        public Vector2 Position;
-        public Vector2 Velocity;
-        public float LivingDuration;
-        public float CurrentHealth;
-        public float BaseHealth;
-        public bool IsInvunerable;
-        public bool IsBlocker;
-        public float Orientation;
-        public float Radius = 20;   // used for circular collision detection
-        public bool IsExpired;      // true if the entity was destroyed and should be deleted
+        public Vector2 Position { get; set; }
+        public Vector2 Velocity { get; set; }
+        public float LivingDuration { get; set; }
+        public float CurrentHealth { get; set; }
+        public float BaseHealth { get; set; }
+        public bool IsInvunerable { get; set; }
+        public bool IsBlocker { get; set; }
+        public float Orientation { get; set; }
+        public float Radius { get; set; } = 20;    // used for circular collision detection
+        public bool IsExpired { get; set; }      // true if the entity was destroyed and should be deleted
 
 
         public Vector2 Size
         {
             get
             {
-                return image == null ? Vector2.Zero : new Vector2(image.Width, image.Height);
+                return Image == null ? Vector2.Zero : new Vector2(Image.Width, Image.Height);
             }
         }
 
@@ -32,7 +32,7 @@ namespace Entity
 
         public virtual void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(image, Position, null, color, Orientation, Size / 2f, 1f, SpriteEffects.None, 0);
+            spriteBatch.Draw(Image, Position, null, Color, Orientation, Size / 2f, 1f, SpriteEffects.None, 0);
         }
     }
 }

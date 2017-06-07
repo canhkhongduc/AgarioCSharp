@@ -1,4 +1,6 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Entity;
+using Helper;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
@@ -9,11 +11,17 @@ namespace TankWars
     /// </summary>
     public class Game1 : Game
     {
+        public static Game1 Instance { get; private set; }
+        public static Viewport Viewport { get { return Instance.GraphicsDevice.Viewport; } }
+        public static Vector2 ScreenSize { get { return new Vector2(Viewport.Width, Viewport.Height); } }
+
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+        Player player;
 
         public Game1()
         {
+            Instance = this;
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
         }
@@ -29,6 +37,14 @@ namespace TankWars
             // TODO: Add your initialization logic here
 
             base.Initialize();
+            player = new Player()
+            {
+                Image = Art.TankBody,
+                Turret = Art.TankTurret,
+                Position = ScreenSize / 2,
+                Radius = 10
+            };
+            EntityManager.Add(player);
         }
 
         /// <summary>
@@ -39,6 +55,8 @@ namespace TankWars
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
+            Art.Load(Content);
+
 
             // TODO: use this.Content to load your game content here
         }
@@ -62,7 +80,26 @@ namespace TankWars
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
+            // Draft input testing
+            else if (Keyboard.GetState().IsKeyDown(Keys.Left))
+            {
+                player.Position = new Vector2(player.Position.X - 1, player.Position.Y);
+            }
+            else if (Keyboard.GetState().IsKeyDown(Keys.Right))
+            {
+                player.Position = new Vector2(player.Position.X + 1, player.Position.Y);
+            }
+            else if (Keyboard.GetState().IsKeyDown(Keys.Up))
+            {
+                player.Position = new Vector2(player.Position.X, player.Position.Y - 1);
+            }
+            else if (Keyboard.GetState().IsKeyDown(Keys.Down))
+            {
+                player.Position = new Vector2(player.Position.X, player.Position.Y + 1);
+            }
+
             // TODO: Add your update logic here
+            EntityManager.Update();
 
             base.Update(gameTime);
         }
@@ -76,6 +113,10 @@ namespace TankWars
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             // TODO: Add your drawing code here
+            GraphicsDevice.Clear(Color.Black);
+            spriteBatch.Begin(SpriteSortMode.Texture, BlendState.Additive);
+            EntityManager.Draw(spriteBatch);
+            spriteBatch.End();
 
             base.Draw(gameTime);
         }

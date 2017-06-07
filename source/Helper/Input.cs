@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TankWars
+namespace Helper
 {
     /**
      *  Class to read input from keyboard and mouse
