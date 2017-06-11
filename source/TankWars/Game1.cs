@@ -3,6 +3,7 @@ using Helper;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System;
 
 namespace TankWars
 {
@@ -18,6 +19,7 @@ namespace TankWars
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         Player player;
+        private float LinearVelocity = 4f;
 
         public Game1()
         {
@@ -81,23 +83,35 @@ namespace TankWars
                 Exit();
 
             // Draft input testing
-            else if (Keyboard.GetState().IsKeyDown(Keys.Left))
+            //else if (Keyboard.GetState().IsKeyDown(Keys.Left))
+            //{
+            //    player.Position = new Vector2(player.Position.X - 1, player.Position.Y);
+            //}
+            //else if (Keyboard.GetState().IsKeyDown(Keys.Right))
+            //{
+            //    player.Position = new Vector2(player.Position.X + 1, player.Position.Y);
+            //}
+            //else if (Keyboard.GetState().IsKeyDown(Keys.Up))
+            //{
+            //    player.Position = new Vector2(player.Position.X, player.Position.Y - 1);
+            //}
+            //else if (Keyboard.GetState().IsKeyDown(Keys.Down))
+            //{
+            //    player.Position = new Vector2(player.Position.X, player.Position.Y + 1);
+            //}
+            else if (Keyboard.GetState().IsKeyDown(Keys.A))
             {
-                player.Position = new Vector2(player.Position.X - 1, player.Position.Y);
+                player.Orientation -= MathHelper.ToRadians(3f);
             }
-            else if (Keyboard.GetState().IsKeyDown(Keys.Right))
+            else if (Keyboard.GetState().IsKeyDown(Keys.D))
             {
-                player.Position = new Vector2(player.Position.X + 1, player.Position.Y);
+                player.Orientation += MathHelper.ToRadians(3f);
             }
-            else if (Keyboard.GetState().IsKeyDown(Keys.Up))
+            var direction = new Vector2((float)Math.Cos(MathHelper.ToRadians(90)-player.Orientation), -(float)Math.Sin(MathHelper.ToRadians(90) - player.Orientation));
+            if (Keyboard.GetState().IsKeyDown(Keys.W))
             {
-                player.Position = new Vector2(player.Position.X, player.Position.Y - 1);
+                player.Position += direction * LinearVelocity;
             }
-            else if (Keyboard.GetState().IsKeyDown(Keys.Down))
-            {
-                player.Position = new Vector2(player.Position.X, player.Position.Y + 1);
-            }
-
             // TODO: Add your update logic here
             EntityManager.Update();
 
