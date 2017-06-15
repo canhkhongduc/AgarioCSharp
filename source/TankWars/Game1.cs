@@ -43,6 +43,7 @@ namespace TankWars
             {
                 Image = Art.TankBody,
                 Turret = Art.TankTurret,
+                CrossHair = Art.Crosshair,
                 Position = ScreenSize / 2,
                 Radius = 10
             };
@@ -116,6 +117,19 @@ namespace TankWars
             EntityManager.Update();
 
             base.Update(gameTime);
+        }
+
+        MouseState currentMouseState;
+        public void TurretUpdate()
+        {
+            // Read current mouse state
+            currentMouseState = Mouse.GetState();
+            Vector2 mousePosition = new Vector2(currentMouseState.X, currentMouseState.Y);
+
+            Vector2 dPos = player.Position - mousePosition;
+
+            // Calculate the rotation for the turret
+            float turretRotation = (float)Math.Atan2(dPos.X, dPos.Y);
         }
 
         /// <summary>
